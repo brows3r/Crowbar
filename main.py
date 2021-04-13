@@ -1,5 +1,5 @@
 # Crowbar
-# 4/3/2021
+# 4/13/2021
 # Made by https://github.com/0x1CA3
 
 import os
@@ -26,9 +26,61 @@ def functionclear():
 functionclear()
 dt = datetime.now()
 
+# return for hub
+def returnfunc():
+    conhubin = input("Continue? y or n > ")
+    if conhubin == "y":
+        conhub()
+
+
+# connect hub
+def conhub():
+    functionclear()
+    ctypes.windll.kernel32.SetConsoleTitleW("[Connect Hub]")
+    print(''' 
+       ╔═╗┌─┐┌┐┌┌┐┌┌─┐┌─┐┌┬┐  ╦ ╦┬ ┬┌┐ 
+       ║  │ │││││││├┤ │   │   ╠═╣│ │├┴┐
+       ╚═╝└─┘┘└┘┘└┘└─┘└─┘ ┴   ╩ ╩└─┘└─┘
+    --------------------------------------
+    ======================================
+    |        Connection Methods          |
+    ======================================
+    | 1. SSH                             |
+    | 2. Netcat [Make sure its installed]|
+    | 3.                                 |
+    | 4.                                 |
+    | 5.                                 |
+    ======================================
+    To select an option, use the command: !use (number of connection method)
+    Use !help for commands.
+    ''')
+
+    connectinput = input("Connect Hub > ")
+    if connectinput == "!help":
+        print(''' 
+        !help - Prints out help commands.
+        !use (number of connection method) - Uses specified connection method.
+        !back - Goes back to the Crowbar menu.
+        ''')
+        returnfunc()
+    elif connectinput == "!back":
+        os.system("py main.py")
+    elif connectinput == "!use 1":
+        conhubip = input("IP > ")
+        os.system("ssh {}".format(conhubip))
+        returnfunc()
+    elif connectinput == "!use 2":
+        ncatconhub = input("IP > ")
+        os.system("ncat {} 4444".format(ncatconhub))
+        returnfunc()
+    else:
+        print("Incorrect Command!")
+        returnfunc()
+
 # utilities
 
 def utilchamber():
+    functionclear()
     print(''' 
                ╦ ╦┌┬┐┬┬  ┬┌┬┐┬ ┬  ╔═╗┬ ┬┌─┐┌┬┐┌┐ ┌─┐┬─┐
                ║ ║ │ ││  │ │ └┬┘  ║  ├─┤├─┤│││├┴┐├┤ ├┬┘
@@ -37,7 +89,7 @@ def utilchamber():
   ==================================================================
   |         Utility           |            Description             |
   ==================================================================
-  | 1.                        |                                    |
+  | 1. ConnectHub             | Hub that shows connection options. |
   | 2.                        |                                    |
   | 3.                        |                                    |
   | 4.                        |                                    |
@@ -48,8 +100,29 @@ def utilchamber():
   | 9.                        |                                    |
   | 10.                       |                                    |
   ==================================================================  
+    To select an item, use the command: !use (Utility number)
+    Example: !use 1
+    Use !back to go back to the utility menu. Also use !help for commands.
     ''')
-
+    utilcham = input("Utility Chamber > ")
+    if utilcham == "!back":
+        util()
+    elif utilcham == "!help":
+        print(''' 
+        !help - Prints out help commands.
+        !use (Utility number) - Uses the specified utility.
+        !back - Goes back to the 'Utilites' Menu
+        ''')
+        utilmen = input("Continue? y or n > ")
+        if utilmen == "y":
+            utilchamber()
+    elif utilcham == "!use 1":
+        conhub()
+    else:
+        print("Incorrect Command!")
+        chamutilwrong = input("Continue? y or n > ")
+        if chamutilwrong == "y":
+            utilchamber()
 
 def util():
     ctypes.windll.kernel32.SetConsoleTitleW("[Utilities]")
@@ -70,8 +143,7 @@ def util():
 | 3. Nmap Scan              | Scans host for ports.              |
 | 4. Screenshot [Unstable]  | Captures hosts screen.             |                
 | 5. AV Trigger             | Triggers AV with video.            |
-| 6. iCommand               | Utility that executes OS commands. |
-| 7. Utility Chamber        | Enters the Utility Chamber.        |
+| 6. Utility Chamber        | Enters the Utility Chamber.        |
 ==================================================================
 ''')
     print('''
