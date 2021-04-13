@@ -1,6 +1,5 @@
-# Crowbar
+# Crowbar - A windows post exploitation tool
 ![image](https://user-images.githubusercontent.com/78043996/114496304-a6079000-9bed-11eb-9687-813554113100.png)
-A windows post exploitation tool that contains a lot of features for information gathering and more.
 # Status - ![image](https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/72/microsoft/209/cross-mark_274c.png)
 This project is still being worked on. I have uploaded the project with all the menus and the base things. There are few scripts
 available for use right now, but more will be added within the next week or so.
