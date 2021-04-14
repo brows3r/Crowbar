@@ -11,4 +11,4 @@ available for use right now, but more will be added within the next week or so.
 Will be updating this soon, but for now this section will stay empty since the
 project isn't close to finishing.
 # Screenshots
-![image](https://media.discordapp.net/attachments/818265394330468385/830877290174349342/unknown.png?width=957&height=502)
+![image](https://user-images.githubusercontent.com/78043996/114745469-ace0f080-9d1c-11eb-9256-1144948ced0d.png)
