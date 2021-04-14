@@ -1,5 +1,5 @@
 # Crowbar
-# 4/13/2021
+# 4/14/2021
 # Made by https://github.com/0x1CA3
 
 import os
@@ -12,6 +12,7 @@ import socket
 import platform
 import psutil
 import pyautogui
+import requests
 from datetime import datetime
 from getmac import get_mac_address
 
@@ -25,6 +26,24 @@ def functionclear():
 
 functionclear()
 dt = datetime.now()
+
+def checkonline():
+    checkurl = "https://ipv4bot.whatismyipaddress.com/"
+    respurl = requests.get(checkurl)
+    if respurl.status_code == 200:
+        print("\nhttps://ipv4bot.whatismyipaddress.com/ - Online!")
+    else:
+        print("\nhttps://ipv4bot.whatismyipaddress.com/ - Offline!")
+
+
+def checkonline1():
+    checkurl1 = "https://vpnapi.io/api/"
+    respurl1 = requests.get(checkurl1)
+    if respurl1.status_code == 200:
+        print("\nhttps://vpnapi.io/api/ - Online!")
+    else:
+        print("\nhttps://vpnapi.io/api/ - Offline!")
+
 
 # return for hub
 def returnfunc():
@@ -77,6 +96,71 @@ def conhub():
         print("Incorrect Command!")
         returnfunc()
 
+def themonleave():
+    themonlea = input("\nContinue? y or n > ")
+    if themonlea == "y":
+        themon()
+
+def themon():
+    functionclear()
+    ctypes.windll.kernel32.SetConsoleTitleW("[iMonitor]")
+    print(''' 
+      ┬╔╦╗┌─┐┌┐┌┬┌┬┐┌─┐┬─┐
+      │║║║│ │││││ │ │ │├┬┘
+      ┴╩ ╩└─┘┘└┘┴ ┴ └─┘┴└─
+   --------------------------
+   ==========================
+   |    root@iMonitor:~$    |
+   ==========================
+   |          Use           |
+   |  !help for commands!!  |
+   ==========================
+Use !back to go to the Crowbar menu.
+In oreder to select a command, do !use (task number). Example: !use 1
+    ''')
+    themoninput = input("iMonitor > ")
+    if themoninput == "!help":
+        print(''' 
+        =================================================================
+        |        Task Commands         |          Description           |
+        =================================================================
+        | 1. tasklist /svc	       | Lists active procceses.        |
+        | 2. taskkill /PID /F          | Forcibly kill task.            |
+        | 3. tasklist /V /S [PC NAME]  | Lists tasks on remote PC.      |
+        | 4. at                        | Query scheduled tasks.         |
+        | 5. schtasks                  | Query task you have accces to. |
+        =================================================================
+        ''')
+        themonleave()
+    elif themoninput == "!use 1":
+        os.system("tasklist /svc")
+        themonleave()
+    elif themoninput == "!use 2":
+        print('''Please make sure you have the PID number of the proccess
+        you are trying to kill.
+        ''')
+        pidtaskinput = input("PID > ")
+        os.system("taskkill /PID {} /F".format(pidtaskinput))
+        themonleave()
+    elif themoninput == "!use 3":
+        print("Make sure you have the Computers name!")
+        pcnamemon = input("Computers Name > ")
+        os.system("tasklist /V /S {}".format(pcnamemon))
+        themonleave()
+    elif themoninput == "!use 4":
+        os.system("at")
+        themonleave()
+    elif themoninput == "!use 5":
+        os.system("schtasks")
+        themonleave()
+    elif themoninput == "!back":
+        utilchamber()
+    else:
+        print("Incorrect Command!")
+        imonwrong = input("Continue? y or n > ")
+        if imonwrong == "y":
+            themon()
+
 # utilities
 
 def utilchamber():
@@ -90,7 +174,7 @@ def utilchamber():
   |         Utility           |            Description             |
   ==================================================================
   | 1. ConnectHub             | Hub that shows connection options. |
-  | 2.                        |                                    |
+  | 2. iMonitor               | A utility for task monitoring.     |
   | 3.                        |                                    |
   | 4.                        |                                    |
   | 5.                        |                                    |
@@ -118,6 +202,8 @@ def utilchamber():
             utilchamber()
     elif utilcham == "!use 1":
         conhub()
+    elif utilcham == "!use 2":
+        themon()
     else:
         print("Incorrect Command!")
         chamutilwrong = input("Continue? y or n > ")
@@ -325,7 +411,7 @@ def vaultmenu():
         | 1. GetUsers              | Prints all users on PC.  |
         | 2. ListCredentials       | Lists credentials.       |
         | 3. Dump Wi-Fi passwords  | Dumps Wi-Fi passwords.   |
-        | 4.                       |                          |
+        | 4. Get IPv4 Address      | Gets IPv4 Address.       |
         | 5.                       |                          |
         | 6.                       |                          |
         | 7.                       |                          |
@@ -363,7 +449,9 @@ def vaultmenu():
         elif pyinput == "!use 3":
             os.system("py Scripts/Vault/Python/getwifipwd.py")
         elif pyinput == "!back":
-            os.system("py Scripts/Vault/vault.py")
+            vaultmenu()
+        elif pyinput == "!use 4":
+            os.system("py Scripts/Vault/Python/ipv4.py")
     elif vaultuserinput == "!use 3":
         print('''
             If you are solely here for trolling, have fun!     
@@ -396,6 +484,23 @@ def vaultmenu():
                 os.system("start Scripts/Vault/Batch/uacbypass.bat")
             elif uacexeques == "n":
                 vaultmenu()
+    elif vaultuserinput == "!use 2":
+        print(''' 
+                                 ╔═╗┌─┐  ╦  ╦┌─┐┬ ┬┬ ┌┬┐
+                                 ╠═╝└─┐  ╚╗╔╝├─┤│ ││  │ 
+                                 ╩  └─┘   ╚╝ ┴ ┴└─┘┴─┘┴ 
+                  -------------------------------------------------------
+        =============================================================================
+        |                           [Powershell Vault]                              | 
+        =============================================================================
+        | 1.                                                                        | 
+        | 2.                                                                        | 
+        | 3.                                                                        | 
+        | 4.                                                                        | 
+        | 5.                                                                        | 
+        =============================================================================
+        ''')
+        psvaultinput = input("!use 1")
     else:
         print("Incorrect Command!")
         kkwrong = input("Continue? y or n > ")
@@ -849,6 +954,7 @@ def icommandterm():
             os.system("py main.py")
 
 
+
 print('\033[32m' + f'''
 MM'""""'YMM                              dP                         
 M' .mmm. `M                              88                         
@@ -857,19 +963,27 @@ M  MMMMMMMM 88'  `88 88'  `88 88  88  88 88'  `88 88'  `88 88'  `88
 M. `MMM' .M 88       88.  .88 88.88b.88' 88.  .88 88.  .88 88       
 MM.     .dM dP       `88888P' 8888P Y8P  88Y8888' `88888P8 dP       
 MMMMMMMMMMM                                                         
-
+                           [Crowbar]
 [-----------------------------------------------------------------]
-[ Version: 1.0                                                    ]
+[ Version: 1.3                                                    ]
 [ Date: {dt}                                ]
-[ Total Scripts: 5                                                ]
-[ Total Utilities: 5                                              ] 
+[ Total Scripts: 11                                               ]
+[ Total Utilities: 7                                              ] 
 [ Made by: https://github.com/0x1CA3                              ]
 [ Use !help for commands!                                         ]
 [-----------------------------------------------------------------]
+
+                       [Online Services]
+[-----------------------------------------------------------------]
+[ Total Online Sevices: 2                                         ]
+[ https://ipv4bot.whatismyipaddress.com/                          ]
+[ https://vpnapi.io/api/                                          ]
+[ Use !online to check if the services are online!                ]
+[-----------------------------------------------------------------]
 ''')
 
-#5
-#5
+# 11
+# 7
 
 userinput = input("Crowbar > ")
 if userinput == "!help":
@@ -891,6 +1005,12 @@ elif userinput == "!dir generator":
     generatordir()
 elif userinput == "!exe iCommand":
     icommand()
+elif userinput == "!online":
+    checkonline()
+    checkonline1()
+    oninput = input("\nContinue? y or n >")
+    if oninput == "y":
+        os.system("py main.py")
 else:
     print("Incorrect Command!")
     wronginput = input("Continue? y or n >")
