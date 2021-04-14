@@ -16,7 +16,7 @@ import requests
 from datetime import datetime
 from getmac import get_mac_address
 
-ctypes.windll.kernel32.SetConsoleTitleW("[Crowbar] - Scripts: 5 | Utilities: 5")
+ctypes.windll.kernel32.SetConsoleTitleW("[Crowbar] - Scripts: 11 | Utilities: 7")
 
 def functionclear():
     if os.name == "nt":
