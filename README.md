@@ -4,6 +4,8 @@
 This project is still being worked on. I have uploaded the project with all the menus and the base things. There are few scripts
 available for use right now, but more will be added within the next week or so.
 # Update logs
+[Not an Update] - Whole rework coming soon.
+
 [4/14/21] - Added 'iMonitor' menu. Fixed some minor menu issues. Added 6 scripts and 2 extra utilities.
 
 [4/13/21] - Added 'Connect Hub' menu. Fixed minor issues.
