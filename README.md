@@ -6,7 +6,7 @@ More will be coming soon!
 # Update logs
 [4/15/21] - Crowbar V2! The whole framework was completely recoded and re-designed. I have added 30 scripts and 1 extra utility.
 
-[Not an Update] - Whole rework coming soon.
+[4/15/21] - Whole rework coming soon.
 
 [4/14/21] - Added 'iMonitor' menu. Fixed some minor menu issues. Added 6 scripts and 2 extra utilities.
 
