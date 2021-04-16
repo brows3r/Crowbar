@@ -4,6 +4,8 @@
 This project is still being worked on. I have uploaded the project with all the menus and the base things. There are few scripts
 available for use right now, but more will be added within the next week or so.
 # Update logs
+[4/15/21] - Crowbar V2! The whole framework was completely recoded and re-designed. I have added 30 scripts and 1 extra utility.
+
 [Not an Update] - Whole rework coming soon.
 
 [4/14/21] - Added 'iMonitor' menu. Fixed some minor menu issues. Added 6 scripts and 2 extra utilities.
