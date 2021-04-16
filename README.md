@@ -15,4 +15,6 @@ available for use right now, but more will be added within the next week or so.
 Will be updating this soon, but for now this section will stay empty since the
 project isn't close to finishing.
 # Screenshots
-![image](https://user-images.githubusercontent.com/78043996/114745469-ace0f080-9d1c-11eb-9256-1144948ced0d.png)
+![image](https://user-images.githubusercontent.com/78043996/114967050-bf087f00-9e41-11eb-80ef-e382f3c8f703.png)
+![image](https://user-images.githubusercontent.com/78043996/114967129-de9fa780-9e41-11eb-8ea5-bff836ecee9d.png)
+![image](https://user-images.githubusercontent.com/78043996/114967203-0131c080-9e42-11eb-8f62-f7bb9f6891da.png)
