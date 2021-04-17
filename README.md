@@ -4,7 +4,7 @@
 This project is still being worked on. This project is almost finished and a lot of scripts and utilities have been added.
 More will be coming soon!
 # Update logs
-[4/15/21] - Added a new tool called 'iPower' for executing system commands via PowerShell. Fixed minor bugs, added a powershell script execution bypass, and fixed up the powershell modules. More scripts coming soon.
+[4/15/21] - Added a new tool called 'iPower' for executing system commands via PowerShell. Fixed minor bugs, added a powershell script execution bypass, and fixed up the powershell mo.dules. More scripts coming soon.
 
 [4/15/21] - Crowbar V2! The whole framework was completely recoded and re-designed. I have added 30 scripts and 1 extra utility.
 
