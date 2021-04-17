@@ -1019,7 +1019,7 @@ print('''
     +——— Crowbar ——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+
     | Version: 2.4                                                                                                                             |
     | Scripts: 30                                                                                                                              |
-    | Utilities: 7                                                                                                                             |
+    | Utilities: 6                                                                                                                             |
     | Made by: https://github.com/0x1CA3                                                                                                       |
     |                                                                                                                                          |
     | Total Online Services: 2                                                                                                                 |
