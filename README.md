@@ -1,5 +1,5 @@
 # Crowbar - A windows post exploitation tool
-![image](https://user-images.githubusercontent.com/78043996/114496304-a6079000-9bed-11eb-9687-813554113100.png)
+![image](https://user-images.githubusercontent.com/78043996/115156390-0d8c6800-a052-11eb-9821-8cfd1f765114.png)
 # Status - ![image](https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/72/microsoft/209/cross-mark_274c.png)
 This project is still being worked on. This project is almost finished and a lot of scripts and utilities have been added.
 More will be coming soon!
