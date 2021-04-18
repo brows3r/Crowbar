@@ -4,6 +4,8 @@
 This project is still being worked on. This project is almost finished and a lot of scripts and utilities have been added.
 More will be coming soon!
 # Update logs
+[4/18/21] - Added a new directory called 'Escalate' to aid in the process of privilege escalation, added 3 more scripts, added a new feature for the 'Scripts' directory called 'Hail Mary' which launches all of the scripts against the target machine, removed 1 broken utility, and fixed minor bugs.
+
 [4/15/21] - Added a new tool called 'iPower' for executing system commands via PowerShell. Fixed minor bugs, added a powershell script execution bypass, and fixed up the powershell modules. More scripts and utilities coming soon.
 
 [4/15/21] - Crowbar V2! The whole framework was completely recoded and re-designed. I have added 30 scripts and 1 extra utility.
