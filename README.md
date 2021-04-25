@@ -21,8 +21,8 @@ More will be coming soon!
 Will be updating this soon, but for now this section will stay empty since the
 project isn't close to finishing.
 # Screenshots
-![image](https://user-images.githubusercontent.com/78043996/115136358-49411680-9fed-11eb-8e67-fd712bbb53a1.png)
-![image](https://user-images.githubusercontent.com/78043996/115136378-6e358980-9fed-11eb-9d6d-9d7ee7658f29.png)
-![image](https://user-images.githubusercontent.com/78043996/115136399-7beb0f00-9fed-11eb-8102-fed1c37f16ee.png)
-![image](https://user-images.githubusercontent.com/78043996/115136402-873e3a80-9fed-11eb-9335-e8bab44198f1.png)
+![image](https://user-images.githubusercontent.com/78043996/115979754-c6244100-a555-11eb-90bb-22cbb915fa0d.png)
+![image](https://user-images.githubusercontent.com/78043996/115979782-e7852d00-a555-11eb-874e-b68500ed3596.png)
+![image](https://user-images.githubusercontent.com/78043996/115979795-f8ce3980-a555-11eb-9345-de648421e856.png)
+![image](https://user-images.githubusercontent.com/78043996/115979801-07b4ec00-a556-11eb-861d-51c108ee6d6e.png)
 
