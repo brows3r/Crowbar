@@ -13,7 +13,6 @@ import platform
 import psutil
 import requests
 import subprocess
-import pyautogui
 from datetime import datetime
 from getmac import get_mac_address
 
