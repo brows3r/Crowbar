@@ -10,5 +10,5 @@ pip3 install platform
 pip3 install psutil
 pip3 install requests
 pip3 install subprocess
-pip3 install getmac
 pip3 install get_mac_address
+pip3 install getmac
