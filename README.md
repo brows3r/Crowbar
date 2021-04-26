@@ -1,7 +1,7 @@
 # Crowbar - A windows post exploitation tool
 ![image](https://user-images.githubusercontent.com/78043996/115156390-0d8c6800-a052-11eb-9821-8cfd1f765114.png)
 # Status - ✔️
-This project is now considered finished. Any updates from now on will most likely be new scripts/utilities/ or just bug fixes. I will try to update/add anything I can to improve this project as frequently as possible. More coming soon!
+This project is now considered finished. Any updates from now on will most likely be new scripts/utilities or just bug fixes. I will try to update/add anything I can to improve this project as frequently as possible. More coming soon!
 # Update logs
 [4/25/21] - Added 2 new scripts and 5 utilities. Added a new option in the main menu called 'WSL' which checks to see if the target machine has 'Windows Subsystem for Linux' installed.
 
@@ -19,8 +19,12 @@ This project is now considered finished. Any updates from now on will most likel
 
 [4/13/21] - Added 'Connect Hub' menu. Fixed minor issues.
 # Installation
-Will be updating this soon, but for now this section will stay empty since the
-project isn't close to finishing.
+[Make sure you have CMD open in the Crowbar folder]
+[And yes, to execute the .bat file just put the name and the extension.]
+```
+requirements.bat
+python main.py
+```
 # Screenshots
 ![image](https://user-images.githubusercontent.com/78043996/116015292-a9941180-a606-11eb-9881-875cb6318b45.png)
 ![image](https://user-images.githubusercontent.com/78043996/116015306-b9abf100-a606-11eb-9fe4-d26655dfc07a.png)
