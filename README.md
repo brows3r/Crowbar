@@ -20,6 +20,7 @@ This project is now considered finished. Any updates from now on will most likel
 [4/13/21] - Added 'Connect Hub' menu. Fixed minor issues.
 # Installation
 [Make sure you have CMD open in the Crowbar folder]
+
 [And yes, to execute the .bat file just put the name and the extension.]
 ```
 requirements.bat
